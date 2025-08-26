@@ -1,3 +1,4 @@
+
 /***********************
  * تأمين قائمة المنتجات
  ***********************/
@@ -116,6 +117,7 @@ let favorites  = (JSON.parse(localStorage.getItem("Favorites")      || "[]") || 
 function saveCart()      { localStorage.setItem("ProductsInCart", JSON.stringify(cartItems)); }
 function saveFavorites() { localStorage.setItem("Favorites",      JSON.stringify(favorites)); }
 
+
 function updateCartCount(){
   if(!cartCountEl) return;
   const totalQty = cartItems.reduce((sum, item)=> sum + (item.qty || 1), 0);
@@ -198,6 +200,7 @@ renderProducts(newArrivals, "new-products");
 /***********************
  * تفاعل كروت المنتجات
  ***********************/
+
 function updateButtonsState(){
   [ "featured-products",  "new-products" ].forEach(containerId => {
     const container = document.getElementById(containerId);
@@ -283,7 +286,15 @@ document.addEventListener("click", e => {
   const product = productsList.find(p => p.id === id);
 
   // Add / Remove Cart
- if(e.target.classList.contains("btn-add-cart")){
+// Add / Remove Cart
+if(e.target.classList.contains("btn-add-cart")){
+    // ✅ هنا تحطي الشرط
+    if(!localStorage.getItem("FirstName")){
+        // مفيش يوزر → يروح لصفحة login
+        window.location.href = "login.html";
+        return; // نوقف العملية
+    }
+
     let exist = cartItems.find(p => p.id === id);
     if(exist){
         cartItems = cartItems.filter(p => p.id !== id);
@@ -294,6 +305,9 @@ document.addEventListener("click", e => {
             cartItems.push(product);
         }
     }
+    
+
+
     localStorage.setItem("ProductsInCart", JSON.stringify(cartItems));
  
 updateButtonsState();   // يغير شكل الأزرار (Add/Remove)
@@ -304,6 +318,11 @@ renderMiniCart();      // يعدّل عدد المنتجات فوق الأيقو
 
   // Favorite
   if(e.target.closest(".btn-fav")){
+     if(!localStorage.getItem("FirstName")){
+        // مفيش يوزر → يروح لصفحة login
+        window.location.href = "login.html";
+        return; // نوقف العملية
+    }
     const existFav = favorites.find(p => p.id === id);
     if(existFav){
       favorites = favorites.filter(p => p.id !== id);
@@ -322,14 +341,20 @@ renderMiniCart();      // يعدّل عدد المنتجات فوق الأيقو
 if(searchInput){
   searchInput.addEventListener("input", function(){
     let keyword = this.value.toLowerCase();
+
     let filtered = productsList.filter(item => 
-      item.name.toLowerCase().includes(keyword)
+      item.name.toLowerCase().includes(keyword) ||
+      item.category.toLowerCase().includes(keyword)
     );
+
+   
+
     renderProducts(filtered, "featured-products"); 
     renderProducts(filtered, "new-products"); 
     updateButtonsState();
   });
 }
+
 
 // ==================== الفلاتر (الأقسام) ====================
 const categoryFilter = document.getElementById("categoryFilter");

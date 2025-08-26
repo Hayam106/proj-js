@@ -3,9 +3,8 @@
  ***********************/
 const cartContainer = document.querySelector(".cart-section");
 const favContainer  = document.querySelector(".fav-section");
-const cartCountEl   = document.querySelector(".cart-count"); // لو فيه هيدر مشترك
-
-const totalPriceEl        = document.getElementById("total-price");
+const cartCountEl   = document.querySelector(".cart-count"); 
+const totalPriceEl  = document.getElementById("total-price");
 
 /***********************
  * حالة التخزين
@@ -35,6 +34,7 @@ function renderCartSection(){
 
   if(cartItems.length === 0){
     cartContainer.innerHTML = `<p class="empty">No items in cart.</p>`;
+    if(totalPriceEl) totalPriceEl.textContent = "0$";
     updateCartCount();
     return;
   }
@@ -45,19 +45,52 @@ function renderCartSection(){
     card.dataset.id = item.id;
 
     card.innerHTML = `
-      <img src="${item.image}" alt="${item.name}" class="card-img">
-      <div class="title-card">
-        <div class="name-product">${item.name}</div>
-        <div class="price">Price: ${item.price}$</div>
-          <button class="btn-remove-cart">Remove</button>
+          <img src="${item.image}" alt="${item.img}" class="card-img">
+      <div class="name-product">${item.name}</div>
+      <div class="price">${item.price}$</div>
+      <div class="cart-quantity">
+        <button class="minus">-</button>
+        <span class="quantity">${item.qty || 1}</span>
+        <button class="plus">+</button>
       </div>
+      <div class="cart-total">${item.price * (item.qty || 1)}$</div>
+      <button class="btn-remove-cart">Remove</button>
     `;
     cartContainer.appendChild(card);
   });
 
-  updateCartCount();
-    const total = cartItems.reduce((s, it)=> s + it.price * (it.qty || 1), 0);
+  const total = cartItems.reduce((s, it)=> s + it.price * (it.qty || 1), 0);
   if(totalPriceEl) totalPriceEl.textContent = `${total}$`;
+  updateCartCount();
+}
+
+/***********************
+ * أحداث الكارت
+ ***********************/
+if(cartContainer){
+  cartContainer.addEventListener("click", e=>{
+    const card = e.target.closest(".card-product");
+    if(!card) return;
+    const id = parseInt(card.dataset.id);
+    let item = cartItems.find(ci => ci.id === id);
+    if(!item) return;
+
+    if(e.target.classList.contains("plus")){
+      item.qty = (item.qty || 1) + 1;
+    }
+    if(e.target.classList.contains("minus")){
+      item.qty = (item.qty || 1) - 1;
+      if(item.qty <= 0){
+        cartItems = cartItems.filter(ci => ci.id !== id);
+      }
+    }
+    if(e.target.classList.contains("btn-remove-cart")){
+      cartItems = cartItems.filter(ci => ci.id !== id);
+    }
+
+    saveCart();
+    renderCartSection();  // تحديث الكارت كله بعد أي تعديل
+  });
 }
 
 /***********************
@@ -94,23 +127,8 @@ function renderFavSection(){
 }
 
 /***********************
- * أحداث السكشنين
+ * أحداث المفضلة
  ***********************/
-// إزالة من الكارت
-if(cartContainer){
-  cartContainer.addEventListener("click", (e)=>{
-    if(e.target.classList.contains("btn-remove-cart")){
-      const card = e.target.closest(".card-product");
-      if(!card) return;
-      const id = parseInt(card.dataset.id, 10);
-      cartItems = cartItems.filter(ci => ci.id !== id);
-      saveCart();
-      renderCartSection();
-    }
-  });
-}
-
-// إزالة من المفضلة
 if(favContainer){
   favContainer.addEventListener("click", (e)=>{
     if(e.target.closest(".btn-fav")){

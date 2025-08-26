@@ -128,7 +128,27 @@ color: rgb(151, 208, 151);
   margin-bottom: 10px;
   text-align: center;
 }
+/* //// */
 
+
+
+
+
+/* أزرار الكمية */
+.cart-quantity {
+  margin-top: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+
+
+
+
+
+/* ////// */
 /* قائمة المنتجات داخل السلة */
 .cart-items-list .cart-item {
   margin: 5px 0;
@@ -167,6 +187,7 @@ color: rgb(151, 208, 151);
  .quantity {
 margin: 0 50px;
   font-size: 20px;
+  color: #222;
 }
 .quantity-control{
         display: flex;
@@ -208,13 +229,13 @@ border-radius: 5px;
   
 }
 .card-product{
-  max-height: 500px;
   width: 350px;
   color: aliceblue;
   overflow: hidden;
   transition: all 0.7s ease;
   background-color: rgb(231, 231, 231);
     box-shadow:0px 0px 12px 2px rgba(53, 55, 53, 0.523);
+max-height: 700px;
 
 }
 
@@ -245,8 +266,12 @@ border-radius: 5px;
 .name-product{
   font-size: 25px;
   font-weight: bold;
+  color: #222;
 }
-
+.price{
+  color: #222;
+    font-size: 18px;  
+}
 .cart_fav_action{
   margin:10px 20px;
   display: flex;

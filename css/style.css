@@ -558,11 +558,13 @@ width: 100%;
     width: 30px;
   }.Search-sec select,input {
 width: 100%;}
-#registerForm {
+#registerForm ,#loginForm{
     width: 90%;
     height: auto; /* يخلي الطول أوتوماتيك */
   }
-
+#loginForm .checkbox{
+  display: none;
+}
   .name-row {
     flex-direction: column; /* ينزلوا تحت بعض */
   }

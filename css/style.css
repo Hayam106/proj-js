@@ -111,14 +111,15 @@ color: rgb(151, 208, 151);
   transform: translateX(-45%);
   background-color: #ffffffdf;
   color: #333;
-  width: 250px;
+  width: 270px;
   box-shadow:0px 7px 13px 13px rgba(0, 0, 0, 0.2);
   z-index: 1000;
-  padding: 5px;
   max-height: 400px;
   overflow-y: auto;
   display: none;
    text-align: -webkit-center;
+   border-radius: 5px;
+   max-height: 90vh;
 
 }
 
@@ -154,8 +155,8 @@ color: rgb(151, 208, 151);
   margin: 5px 0;
   font-size: 14px;
   border-radius: 5px;
-  background-color: rgba(240, 248, 255, 0.784);
- 
+  background-color: rgba(210, 212, 211, 0.784);
+ padding: 5px;
   align-items: center;
 }
 .cart-item .name ,.price{
@@ -200,17 +201,17 @@ margin: 0 50px;
 }
 .minus,.plus{
    width: 30px;
-      background-color: #ddffec;
-      color: #222;
+      /* background-color: #edfff6; */
+      color: #3f3f3f;
       font-size: 18px;
-border-radius: 5px;
+border-radius: 2px;
 }
 
 
 /* ==================== الكروت ==================== */
 .products ,.Favorite {
   width: 85%;
-  margin: 50px auto;
+  margin:  auto;
   padding: 20px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
@@ -235,7 +236,7 @@ border-radius: 5px;
   transition: all 0.7s ease;
   background-color: rgb(231, 231, 231);
     box-shadow:0px 0px 12px 2px rgba(53, 55, 53, 0.523);
-max-height: 700px;
+height: 500px;
 
 }
 
@@ -244,7 +245,13 @@ max-height: 700px;
   box-shadow: 0px 0px 12px 5px rgba(125, 154, 133, 0.523);
   border:1px solid rgb(151, 208, 151);
 }
+.products-cart .cart-section .card-product img{
+height: 55%;
 
+}
+.fav-section .card-product img{
+   height: 70%;
+}
 .card-product img{
   height: 65%;
   width: 100%;
@@ -287,7 +294,7 @@ max-height: 700px;
 h1{
   text-align: center;
   width: 80%;
-  margin:2% auto;
+  margin: auto;
   padding: 20px;
   font-family:  "Libertinus Sans", sans-serif;
 }
@@ -301,7 +308,7 @@ h1{
     width: 10%;
   height: 4px;
   background-color:rgb(33 ,37 ,41) ;
-  margin:2% auto;
+  margin: auto;
 }
 
 
@@ -463,13 +470,15 @@ padding: 5px;
     margin:7% auto;
 }
 
-
-.cart-total,.empty{
+.productsfavv{
+  margin-top: 80px;
+}
+.cart-total,.empty,#total-price{
   text-align: center;
   font-weight: bold;
     margin: 20px 0;
     text-align: center;
-    font-size: 20px;
+    font-size: 25px;
     color: #222;
 
 }
@@ -564,7 +573,7 @@ border-top-right-radius: 45%;
    .content {
     width: 100%;
     flex-direction: row;   /* يخلي العناصر تحت بعض */
-    justify-content: center;
+    justify-content: space-between;
     align-items: center;
     padding: 5px 0;
     /* margin: 0 10px; */
@@ -609,7 +618,7 @@ width: 100%;}
        /* width: 100%; */
       padding: 0;
   }.card-product{
-    min-height: max-content;
+    max-height: 700px;
       width: 100%;
        /* margin: 0; */
   }.products-cart{
